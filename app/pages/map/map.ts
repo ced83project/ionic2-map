@@ -3,6 +3,7 @@ import {ModalController, AlertController} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
 import {LocationService} from '../../services/location-service';
 import {LocationDetailsPage} from '../location-details/location-details';
+import {AngularFire} from 'angularfire2';
 
 declare var google;
 
@@ -17,15 +18,20 @@ export class MapPage {
  
   constructor(
     private zone: NgZone,
+    public af: AngularFire,
     public modalController: ModalController, 
     public alertController: AlertController, 
     public locationService: LocationService) {
   }
   
   ionViewLoaded(){
+
     this.locationService.findAll().subscribe(
       data => this.locations = data
     );
+
+    // Retrieve the Locations
+    //this.locations = this.af.database.list('/locations');
     this.loadMap();
   }
  

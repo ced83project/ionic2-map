@@ -1,30 +1,94 @@
-
 <ion-header>
   <ion-navbar>
     <ion-title>Hello Ionic</ion-title>
     <ion-buttons start>
       <button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
+    <ion-buttons end>
+      <button (click)="logoutClicked()">
+        <ion-icon name="contact"></ion-icon>
+        {{buttonTitle}}
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding class="getting-started">
+<ion-content class="getting-started">
+  
+  <div padding>
+    <h3>Welcome to your first Ionic app!</h3>
+    <p>This starter project is our way of helping you get a functional app running in record time.</p>
+    <p>
+      TODO :
+      <br>- Error when go to home page from the menu
+      <br>- Get the Map Locations from Firebase using service
+    </p>
+  </div>
 
-  <h3>Welcome to your first Ionic app!</h3>
-
-  <p>
-    This starter project is our way of helping you get a functional app running in record time.
-  </p>
-  <p>
-    Follow along on the tutorial section of the Ionic docs!
-  </p>
-  <p>
-    <button primary menuToggle>Toggle Menu</button>
-    <button (click)="takePicture()">Take a Picture</button>
-  </p>
-  <p>
-    Latest Picture:
-    <img [src]="base64Image" *ngIf="base64Image" />
-  </p>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider light>
+        1. Menu
+      </ion-item-divider>    
+      <ion-item>
+        <p>
+          <button primary menuToggle>Toggle Menu</button>
+        </p>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider light>
+        2. Google Map
+      </ion-item-divider>    
+      <ion-item>
+        <p>
+          <button>Display Map</button>
+        </p>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider light>
+        3. Camera
+      </ion-item-divider>    
+      <ion-item>
+        <p>
+          <button (click)="takePicture()">Take a Picture</button>
+        </p>
+        <div *ngIf="base64Image">
+          <img [src]="base64Image" />
+        </div>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>    
+      <ion-item-divider light>
+        4. Firebase Backend
+      </ion-item-divider>    
+      <ion-item>
+        <p>
+          <button (click)="getLocations()">Get Location</button>
+        </p>
+        <ion-card *ngFor="let location of locations | async">
+          <ion-card-content>
+            {{location.name}}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider light>
+        6. Authentication
+      </ion-item-divider>    
+      <ion-item>
+        <div *ngIf="displayName">You are logged in as {{authInfo && displayName}}</div>
+        <div *ngIf="!displayName">Please log in</div>
+        <button (click)="logoutClicked()">
+          <ion-icon name="contact"></ion-icon>
+          {{buttonTitle}}
+        </button>
+      </ion-item>
+    </ion-item-group>
+  
+  </ion-list>
+  
 </ion-content>

@@ -5,10 +5,31 @@ import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
 import {MapPage} from './pages/map/map';
 import {LocationService} from './services/location-service';
+import {FIREBASE_PROVIDERS, 
+        defaultFirebase, 
+        AngularFire, 
+        firebaseAuthConfig, 
+        AuthProviders,
+        AuthMethods} from 'angularfire2'; 
 
 @Component({
   templateUrl: 'build/app.html',
-  providers: [LocationService]
+  providers: [
+    LocationService,
+    FIREBASE_PROVIDERS,
+    defaultFirebase({
+      apiKey: "AIzaSyAi-K8q65y2MxD_nTmAvcDRy9tL8RNF3Gs",
+      authDomain: "api-project-678138092249.firebaseapp.com",
+      databaseURL: "https://api-project-678138092249.firebaseio.com",
+      storageBucket: "api-project-678138092249.appspot.com",
+    }),
+    firebaseAuthConfig({
+      provider: AuthProviders.Password,
+      method: AuthMethods.Password,
+      remember: 'default',
+      scope: ['email']
+    })
+  ]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
